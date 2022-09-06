@@ -1,9 +1,13 @@
-import styled, { css } from 'styled-components'
-import {NewGameComponent} from "./NewGameComponent";
-import {OngoingGameComponent} from "./OngoingGameComponent";
-import {useReducer} from "react";
-import {GameStateEnum, gameStateReducer, initialGameState} from "../../reducers/gameStateReducer";
-import {EndGameComponent} from "./EndGameComponent";
+import styled from "styled-components";
+import { NewGameComponent } from "./NewGameComponent";
+import { OngoingGameComponent } from "./OngoingGameComponent";
+import { useEffect, useReducer, useState } from "react";
+import {
+  GameStateEnum,
+  gameStateReducer,
+  initialGameState,
+} from "../../reducers/gameStateReducer";
+import { EndGameComponent } from "./EndGameComponent";
 
 export const GamePageComponent = () => {
   const Container = styled.div`
@@ -20,25 +24,36 @@ export const GamePageComponent = () => {
   `;
 
   const [gameState, dispatchGameState] = useReducer(
-      gameStateReducer,
-      initialGameState
+    gameStateReducer,
+    initialGameState
   );
+  console.log("gp ", gameState);
 
   const getGameStateComponent = () => {
-      if(gameState == GameStateEnum.NO_GAME) {
-        return <NewGameComponent />
-      }
-      if(gameState == GameStateEnum.RUNNING) {
-        return <OngoingGameComponent />
-      }
-      if(gameState == GameStateEnum.FINISHED) {
-        return <EndGameComponent />
-      }
-      return <NewGameComponent />
+    console.log("getGameStateComponent ", gameState);
+    if (gameState == GameStateEnum.NO_GAME) {
+      return <NewGameComponent />;
+    }
+    if (gameState === GameStateEnum.RUNNING) {
+      return <OngoingGameComponent />;
+    }
+    if (gameState == GameStateEnum.FINISHED) {
+      return <EndGameComponent />;
+    }
+    return <NewGameComponent />;
+  };
 
-  }
-
-  return (
-      getGameStateComponent()
+  const [gameStateComponent, setGameStateComponent] = useState(
+    getGameStateComponent()
   );
+
+  useEffect(() => {
+    console.log("gamepage ", gameState);
+    setGameStateComponent(getGameStateComponent);
+  }, [ ]);
+
+
+
+
+  return getGameStateComponent();
 };

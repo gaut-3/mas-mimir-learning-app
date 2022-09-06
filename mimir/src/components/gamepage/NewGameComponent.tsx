@@ -5,7 +5,10 @@ import {
   gameReducer,
   initialState,
 } from "../../reducers/gameReducer";
-import {gameStateReducer, initialGameState} from "../../reducers/gameStateReducer";
+import {
+  gameStateReducer,
+  initialGameState,
+} from "../../reducers/gameStateReducer";
 
 export const NewGameComponent = () => {
   const Container = styled.div`
@@ -23,15 +26,18 @@ export const NewGameComponent = () => {
     padding: 1.25em 3em;
   `;
   const [game, dispatchGame] = useReducer(gameReducer, initialState);
-  const [gameState, dispatchGameState] = useReducer(gameStateReducer, initialGameState);
+  const [gameState, dispatchGameState] = useReducer(
+    gameStateReducer,
+    initialGameState
+  );
 
   const handleNewGameButton = () => {
-    fetchNewGame().then((value) => {
-      dispatchGame({ type: "START_NEW_GAME", payload: value });
-      dispatchGameState({ type: "SET_GAME_STARTED" });
-    });
+    fetchNewGame()
+      .then((value) => {
+        dispatchGame({ type: "START_NEW_GAME", payload: value });
+      })
+      .finally(() => dispatchGameState({ type: "SET_GAME_STARTED" }));
   };
-
 
   console.log(game);
   console.log(gameState);

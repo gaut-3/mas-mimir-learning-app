@@ -3,8 +3,8 @@ export interface GameState {
 }
 
 export enum GameStateEnum {
-  RUNNING,
   NO_GAME,
+  RUNNING,
   FINISHED,
 }
 
