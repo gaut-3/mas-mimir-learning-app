@@ -1,3 +1,7 @@
-export const NewGameComponent = () => {
-
-}
+export const EndGameComponent = () => {
+  return (
+    <>
+      <div>Test</div>
+    </>
+  );
+};

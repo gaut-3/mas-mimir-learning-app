@@ -1,6 +1,9 @@
 import styled, { css } from 'styled-components'
 import {NewGameComponent} from "./NewGameComponent";
 import {OngoingGameComponent} from "./OngoingGameComponent";
+import {useReducer} from "react";
+import {GameStateEnum, gameStateReducer, initialGameState} from "../../reducers/gameStateReducer";
+import {EndGameComponent} from "./EndGameComponent";
 
 export const GamePageComponent = () => {
   const Container = styled.div`
@@ -16,8 +19,26 @@ export const GamePageComponent = () => {
     padding: 0.25em 1em;
   `;
 
+  const [gameState, dispatchGameState] = useReducer(
+      gameStateReducer,
+      initialGameState
+  );
+
+  const getGameStateComponent = () => {
+      if(gameState == GameStateEnum.NO_GAME) {
+        return <NewGameComponent />
+      }
+      if(gameState == GameStateEnum.RUNNING) {
+        return <OngoingGameComponent />
+      }
+      if(gameState == GameStateEnum.FINISHED) {
+        return <EndGameComponent />
+      }
+      return <NewGameComponent />
+
+  }
+
   return (
-    // <NewGameComponent></NewGameComponent>
-    <OngoingGameComponent></OngoingGameComponent>
+      getGameStateComponent()
   );
 };

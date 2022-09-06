@@ -1,4 +1,11 @@
 import styled from "styled-components";
+import { useReducer } from "react";
+import {
+  fetchNewGame,
+  gameReducer,
+  initialState,
+} from "../../reducers/gameReducer";
+import {gameStateReducer, initialGameState} from "../../reducers/gameStateReducer";
 
 export const NewGameComponent = () => {
   const Container = styled.div`
@@ -15,12 +22,25 @@ export const NewGameComponent = () => {
     margin: 0 1em;
     padding: 1.25em 3em;
   `;
+  const [game, dispatchGame] = useReducer(gameReducer, initialState);
+  const [gameState, dispatchGameState] = useReducer(gameStateReducer, initialGameState);
+
+  const handleNewGameButton = () => {
+    fetchNewGame().then((value) => {
+      dispatchGame({ type: "START_NEW_GAME", payload: value });
+      dispatchGameState({ type: "SET_GAME_STARTED" });
+    });
+  };
+
+
+  console.log(game);
+  console.log(gameState);
 
   return (
     <>
       <Container>
         <div>
-          <Button>Test</Button>
+          <Button onClick={handleNewGameButton}>Start New Game</Button>
         </div>
       </Container>
       <Container>

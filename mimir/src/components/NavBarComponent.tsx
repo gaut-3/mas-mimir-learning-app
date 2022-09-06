@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import {useReducer, useState} from "react";
+import {GameStateEnum, gameStateReducer, initialGameState} from "../reducers/gameStateReducer";
 
 export const NavBarComponent = () => {
   const Container = styled.div`
@@ -7,18 +9,18 @@ export const NavBarComponent = () => {
     align-items: center;
     justify-content: space-between;
     background-color: blue;
-    padding: 0 5px
+    padding: 0 5px;
   `;
 
   interface ItemProps {
-      alignment: string
+    alignment: string;
   }
 
   const Item = styled.div<ItemProps>`
     margin: 10px;
-    text-align: ${p => p.alignment};
+    text-align: ${(p) => p.alignment};
     width: 100%;
-     justify-content: right;
+    justify-content: right;
   `;
 
   const Button = styled.button`
@@ -29,13 +31,37 @@ export const NavBarComponent = () => {
     padding: 1.25em 3em;
   `;
 
+  const [buttonTitle, setButtonTitle] = useState(GameStateEnum.NO_GAME);
+  const [gameState, dispatchGameState] = useReducer(
+    gameStateReducer,
+    initialGameState
+  );
+
+  const getGameStateTitle = () => {
+      if(gameState == GameStateEnum.NO_GAME) {
+          return "New Game"
+      }
+      if(gameState == GameStateEnum.RUNNING) {
+          return "Solve"
+      }
+      if(gameState == GameStateEnum.FINISHED) {
+          return "Finished"
+      }
+      return "New Game"
+  }
+
+
   return (
     <Container>
       <Item alignment="left">
         <h1>Mimir</h1>
       </Item>
-      <Item alignment="center"><Button>New Game</Button></Item>
-      <Item alignment="right"><Button>Manage Card</Button></Item>
+      <Item alignment="center">
+        <Button>{getGameStateTitle()}</Button>
+      </Item>
+      <Item alignment="right">
+        <Button>Manage Card</Button>
+      </Item>
     </Container>
   );
 };
