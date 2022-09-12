@@ -1,15 +1,18 @@
 import styled from "styled-components";
 import { NewGameComponent } from "./NewGameComponent";
 import { OngoingGameComponent } from "./OngoingGameComponent";
-import { useEffect, useReducer, useState } from "react";
-import {
-  GameStateEnum,
-  gameStateReducer,
-  initialGameState,
-} from "../../reducers/gameStateReducer";
+import {useContext, useEffect, useReducer, useState} from "react";
 import { EndGameComponent } from "./EndGameComponent";
+import {GameStateEnum} from "../../utils/GameStateEnum";
+import {Game, GameState} from "../../store/GameReducer";
 
-export const GamePageComponent = () => {
+interface Props {
+  gameState: GameState
+  onGameChange: (game: Game) => void
+}
+
+
+export const GamePageComponent = ({gameState, onGameChange}: Props) => {
   const Container = styled.div`
     display: flex;
     flexdirection: row;
@@ -23,37 +26,31 @@ export const GamePageComponent = () => {
     padding: 0.25em 1em;
   `;
 
-  const [gameState, dispatchGameState] = useReducer(
-    gameStateReducer,
-    initialGameState
-  );
-  console.log("gp ", gameState);
+  //const { vehicles, selectedVehicles } = state as IAppState
+ // console.log("gp ", gameState);
 
-  const getGameStateComponent = () => {
-    console.log("getGameStateComponent ", gameState);
-    if (gameState == GameStateEnum.NO_GAME) {
-      return <NewGameComponent />;
+  const getGameStateComponent = (game: GameState) => {
+    console.log("getGameStateComponent gamestate", game);
+    if (game.state == GameStateEnum.NO_GAME) {
+      return <NewGameComponent onGameChange={onGameChange} gameState={gameState} />;
     }
-    if (gameState === GameStateEnum.RUNNING) {
+    if (game.state === GameStateEnum.RUNNING) {
       return <OngoingGameComponent />;
     }
-    if (gameState == GameStateEnum.FINISHED) {
+    if (game.state == GameStateEnum.FINISHED) {
       return <EndGameComponent />;
     }
-    return <NewGameComponent />;
+    return <NewGameComponent onGameChange={onGameChange} gameState={gameState}  />;
   };
 
   const [gameStateComponent, setGameStateComponent] = useState(
-    getGameStateComponent()
+    getGameStateComponent(gameState)
   );
 
   useEffect(() => {
-    console.log("gamepage ", gameState);
-    setGameStateComponent(getGameStateComponent);
-  }, [ ]);
+    console.log("useeffect gameState ", gameState);
+    setGameStateComponent(getGameStateComponent(gameState));
+  }, [gameState, onGameChange]);
 
-
-
-
-  return getGameStateComponent();
+  return gameStateComponent;
 };

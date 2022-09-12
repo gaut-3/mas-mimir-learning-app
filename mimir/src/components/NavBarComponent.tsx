@@ -1,8 +1,13 @@
 import styled from "styled-components";
-import {useReducer, useState} from "react";
-import {GameStateEnum, gameStateReducer, initialGameState} from "../reducers/gameStateReducer";
+import {useEffect, useReducer, useState} from "react";
+import { GameStateEnum } from "../utils/GameStateEnum";
+import {GameState} from "../store/GameReducer";
 
-export const NavBarComponent = () => {
+interface Props {
+  gameState: GameState;
+}
+
+export const NavBarComponent = ({ gameState }: Props) => {
   const Container = styled.div`
     display: flex;
     flex-direction: row;
@@ -31,25 +36,25 @@ export const NavBarComponent = () => {
     padding: 1.25em 3em;
   `;
 
-  const [buttonTitle, setButtonTitle] = useState(GameStateEnum.NO_GAME);
-  const [gameState, dispatchGameState] = useReducer(
-    gameStateReducer,
-    initialGameState
-  );
+  const [buttonTitle, setButtonTitle] = useState<String>("New Game");
 
   const getGameStateTitle = () => {
-      if(gameState == GameStateEnum.NO_GAME) {
-          return "New Game"
-      }
-      if(gameState == GameStateEnum.RUNNING) {
-          return "Solve"
-      }
-      if(gameState == GameStateEnum.FINISHED) {
-          return "Finished"
-      }
-      return "New Game"
-  }
+    if (gameState.state == GameStateEnum.NO_GAME) {
+      return "New Game";
+    }
+    if (gameState.state == GameStateEnum.RUNNING) {
+      return "Solve";
+    }
+    if (gameState.state == GameStateEnum.FINISHED) {
+      return "Finished";
+    }
+    return "New Game";
+  };
 
+  useEffect(() => {
+    console.log("useeffect gameState ", gameState);
+    setButtonTitle(getGameStateTitle());
+  }, [gameState]);
 
   return (
     <Container>
@@ -57,7 +62,7 @@ export const NavBarComponent = () => {
         <h1>Mimir</h1>
       </Item>
       <Item alignment="center">
-        <Button>{getGameStateTitle()}</Button>
+        <Button>{buttonTitle}</Button>
       </Item>
       <Item alignment="right">
         <Button>Manage Card</Button>

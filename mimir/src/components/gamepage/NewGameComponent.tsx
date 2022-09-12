@@ -1,16 +1,14 @@
 import styled from "styled-components";
-import { useReducer } from "react";
-import {
-  fetchNewGame,
-  gameReducer,
-  initialState,
-} from "../../reducers/gameReducer";
-import {
-  gameStateReducer,
-  initialGameState,
-} from "../../reducers/gameStateReducer";
+import { Game, GameState } from "../../store/GameReducer";
 
-export const NewGameComponent = () => {
+import { fetchNewGame } from "../../services/GameService";
+
+interface Props {
+  gameState: GameState;
+  onGameChange: (game: Game) => void;
+}
+
+export const NewGameComponent = ({ gameState, onGameChange }: Props) => {
   const Container = styled.div`
     display: flex;
     flex-direction: row;
@@ -25,22 +23,16 @@ export const NewGameComponent = () => {
     margin: 0 1em;
     padding: 1.25em 3em;
   `;
-  const [game, dispatchGame] = useReducer(gameReducer, initialState);
-  const [gameState, dispatchGameState] = useReducer(
-    gameStateReducer,
-    initialGameState
-  );
 
   const handleNewGameButton = () => {
-    fetchNewGame()
-      .then((value) => {
-        dispatchGame({ type: "START_NEW_GAME", payload: value });
-      })
-      .finally(() => dispatchGameState({ type: "SET_GAME_STARTED" }));
+    fetchNewGame().then((value) => {
+      if (value) {
+        onGameChange(value);
+      }
+    });
   };
 
-  console.log(game);
-  console.log(gameState);
+  console.log("new game component gamestate: ", gameState);
 
   return (
     <>
