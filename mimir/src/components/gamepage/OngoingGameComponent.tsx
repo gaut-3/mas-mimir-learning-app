@@ -1,4 +1,9 @@
 import styled from "styled-components";
+import { deleteGame, patchAnswerGame } from "../../services/GameService";
+import { ChangeEvent, useContext, useState } from "react";
+import { AppContext } from "../../store/GameContext";
+import { ActionTypeEnum } from "../../models/Action";
+import { Answer } from "../../store/GameReducer";
 
 export const OngoingGameComponent = () => {
   const Container = styled.div`
@@ -35,26 +40,68 @@ export const OngoingGameComponent = () => {
     padding-top: 50%;
     margin: 0;
   `;
+  const [answerText, setAnswerText] = useState("");
+  const { game, state, dispatch } = useContext(AppContext);
+
+  const handleDeleteGameButton = () => {
+    deleteGame().then((value) => {
+      if (value) {
+        dispatch({ type: ActionTypeEnum.DeleteGame });
+      }
+    });
+  };
+
+  const handleAnwserButton = () => {
+    const answer: Answer = {
+      answer: answerText,
+    };
+    patchAnswerGame(answer).then((value) => {
+      if (value) {
+        console.log("ongoing finished awsdf ", game.solved.length, game.cardCount)
+        if (value.solved.length === value.cardCount) {
+          console.log("ongoing finished")
+          dispatch({ game: value, type: ActionTypeEnum.FinishGame });
+        } else {
+          dispatch({ game: value, type: ActionTypeEnum.UpdateGame });
+        }
+      }
+    });
+  };
+
+  console.log("game ", game);
+
+  const getGameProgression = () => {
+    return (game.solved.length / game.cardCount) * 100;
+  };
+
+  const handleAnswerTextfield = (e: ChangeEvent<HTMLInputElement>) => {
+    setAnswerText(e.target.value);
+  };
 
   return (
     <>
       <Container>
         <div>
-          <h2>Progess 33%</h2>
+          <h2>Progess {getGameProgression()}%</h2>
         </div>
         <div>
-          <Button>Delete Game</Button>
+          <Button onClick={handleDeleteGameButton}>Delete Game</Button>
         </div>
       </Container>
       <Content>
         <Card>
-          <Word>Gegenwart</Word>
+          <Word>{game.front}</Word>
         </Card>
       </Content>
       <Content>
         <div>
-          <input type="text" />
-          <Button>Submit</Button>
+          <input
+            type="text"
+            autoFocus={true}
+            value={answerText}
+            onChange={handleAnswerTextfield}
+          />
+          <Button onClick={handleAnwserButton}>Submit</Button>
         </div>
       </Content>
     </>

@@ -5,15 +5,11 @@ import { GamePageComponent } from "./components/gamepage/GamePageComponent";
 import {gameReducer, initialGame} from "./store/GameReducer";
 
 function App() {
-  const [gameState, gameStateDispatch] = useReducer(
-    gameReducer,
-      initialGame
-  );
 
   return (
     <div className="App">
-      <NavBarComponent gameState={gameState}></NavBarComponent>
-      <GamePageComponent gameState={gameState} onGameChange={game => gameStateDispatch({type: "set-new-game", game})}></GamePageComponent>
+      <NavBarComponent ></NavBarComponent>
+      <GamePageComponent />
     </div>
   );
 }

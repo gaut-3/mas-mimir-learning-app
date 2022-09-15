@@ -8,7 +8,7 @@ interface Props {
   gameState: GameState;
 }
 
-export const NavBarComponent = ({ gameState }: Props) => {
+export const NavBarComponent = () => {
   const Container = styled.div`
     display: flex;
     flex-direction: row;
@@ -45,7 +45,11 @@ export const NavBarComponent = ({ gameState }: Props) => {
       return "New Game";
     }
     if (state == GameStateEnum.RUNNING) {
-      return "Solve";
+      let count = game.solved.length;
+      if(count === 0) {
+        count = 1
+      }
+      return "Solve #" + count;
     }
     if (state == GameStateEnum.FINISHED) {
       return "Finished";
