@@ -1,5 +1,7 @@
-import {GameStateEnum} from "../utils/GameStateEnum";
+import { GameStateEnum } from "../utils/GameStateEnum";
+import {Game} from "./Game";
 
-interface GameState {
-    state: GameStateEnum;
+export interface GameState {
+  game: Game;
+  state: GameStateEnum;
 }

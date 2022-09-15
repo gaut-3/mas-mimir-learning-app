@@ -1,7 +1,10 @@
 import styled from "styled-components";
-import { Game, GameState } from "../../store/GameReducer";
 
 import { fetchNewGame } from "../../services/GameService";
+import {GameState} from "../../models/GameState";
+import {Game} from "../../models/Game";
+import {AppContext} from "../../store/GameContext";
+import {useContext} from "react";
 
 interface Props {
   gameState: GameState;
@@ -24,15 +27,15 @@ export const NewGameComponent = ({ gameState, onGameChange }: Props) => {
     padding: 1.25em 3em;
   `;
 
+  const { game, state, dispatch } = useContext(AppContext)
+
   const handleNewGameButton = () => {
     fetchNewGame().then((value) => {
       if (value) {
-        onGameChange(value);
+        dispatch({game: value, type: 'set-new-game', })
       }
     });
   };
-
-  console.log("new game component gamestate: ", gameState);
 
   return (
     <>

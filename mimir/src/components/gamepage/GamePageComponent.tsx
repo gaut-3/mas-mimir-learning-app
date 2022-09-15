@@ -1,18 +1,19 @@
 import styled from "styled-components";
 import { NewGameComponent } from "./NewGameComponent";
 import { OngoingGameComponent } from "./OngoingGameComponent";
-import {useContext, useEffect, useReducer, useState} from "react";
+import { useContext, useEffect, useState } from "react";
 import { EndGameComponent } from "./EndGameComponent";
-import {GameStateEnum} from "../../utils/GameStateEnum";
-import {Game, GameState} from "../../store/GameReducer";
+import { GameStateEnum } from "../../utils/GameStateEnum";
+import { AppContext } from "../../store/GameContext";
+import {GameState} from "../../models/GameState";
+import {Game} from "../../models/Game";
 
 interface Props {
-  gameState: GameState
-  onGameChange: (game: Game) => void
+  gameState: GameState;
+  onGameChange: (game: Game) => void;
 }
 
-
-export const GamePageComponent = ({gameState, onGameChange}: Props) => {
+export const GamePageComponent = ({ gameState, onGameChange }: Props) => {
   const Container = styled.div`
     display: flex;
     flexdirection: row;
@@ -27,30 +28,36 @@ export const GamePageComponent = ({gameState, onGameChange}: Props) => {
   `;
 
   //const { vehicles, selectedVehicles } = state as IAppState
- // console.log("gp ", gameState);
+  // console.log("gp ", gameState);
 
-  const getGameStateComponent = (game: GameState) => {
+  const { game, state, dispatch } = useContext(AppContext);
+
+  const getGameStateComponent = (state: GameStateEnum) => {
     console.log("getGameStateComponent gamestate", game);
-    if (game.state == GameStateEnum.NO_GAME) {
-      return <NewGameComponent onGameChange={onGameChange} gameState={gameState} />;
+    if (state == GameStateEnum.NO_GAME) {
+      return (
+        <NewGameComponent onGameChange={onGameChange} gameState={gameState} />
+      );
     }
-    if (game.state === GameStateEnum.RUNNING) {
+    if (state === GameStateEnum.RUNNING) {
       return <OngoingGameComponent />;
     }
-    if (game.state == GameStateEnum.FINISHED) {
+    if (state == GameStateEnum.FINISHED) {
       return <EndGameComponent />;
     }
-    return <NewGameComponent onGameChange={onGameChange} gameState={gameState}  />;
+    return (
+      <NewGameComponent onGameChange={onGameChange} gameState={gameState} />
+    );
   };
 
   const [gameStateComponent, setGameStateComponent] = useState(
-    getGameStateComponent(gameState)
+    getGameStateComponent(state)
   );
 
   useEffect(() => {
-    console.log("useeffect gameState ", gameState);
-    setGameStateComponent(getGameStateComponent(gameState));
-  }, [gameState, onGameChange]);
+    console.log("useeffect gameState ", state);
+    setGameStateComponent(getGameStateComponent(state));
+  }, [state]);
 
   return gameStateComponent;
 };

@@ -1,4 +1,6 @@
 import { GameStateEnum } from "../utils/GameStateEnum";
+import { GameState } from "../models/GameState";
+import { Action } from "../models/Action";
 
 export interface GameCard {
   id: string;
@@ -6,17 +8,6 @@ export interface GameCard {
   back: string;
   answer: string;
   accepted: string;
-}
-
-export interface Game {
-  front: string;
-  cardCount: number;
-  solved: [];
-}
-
-export interface GameState {
-  game: Game
-  state: GameStateEnum
 }
 
 export interface Card {
@@ -29,29 +20,20 @@ export interface Anwser {
   answer: string;
 }
 
-export const initialGame: GameState = {
-  game: {
-    front: "",
-    cardCount: 0,
-    solved: []
-  },
-  state: GameStateEnum.NO_GAME
-}
-
-type SetNewGameAction = {
-  type: 'set-new-game'
-  game: Game
-}
-
-type Action = SetNewGameAction
-
-export const GameReducer = (
-  gameState: GameState,
-  action: Action
-) => {
+export function gameReducer(gameState: GameState, action: Action): GameState {
   switch (action.type) {
     case "set-new-game":
       return { game: action.game, state: GameStateEnum.RUNNING };
       break;
   }
+}
+
+export const initialGame: GameState = {
+  game: {
+    front: "",
+    cardCount: 0,
+    solved: [],
+  },
+  state: GameStateEnum.NO_GAME,
 };
+

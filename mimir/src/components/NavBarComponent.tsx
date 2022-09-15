@@ -1,7 +1,8 @@
 import styled from "styled-components";
-import {useEffect, useReducer, useState} from "react";
+import { useContext, useEffect, useState } from "react";
 import { GameStateEnum } from "../utils/GameStateEnum";
-import {GameState} from "../store/GameReducer";
+import { AppContext } from "../store/GameContext";
+import {GameState} from "../models/GameState";
 
 interface Props {
   gameState: GameState;
@@ -37,24 +38,25 @@ export const NavBarComponent = ({ gameState }: Props) => {
   `;
 
   const [buttonTitle, setButtonTitle] = useState<String>("New Game");
+  const {  game, state, dispatch } = useContext(AppContext);
 
   const getGameStateTitle = () => {
-    if (gameState.state == GameStateEnum.NO_GAME) {
+    if (state == GameStateEnum.NO_GAME) {
       return "New Game";
     }
-    if (gameState.state == GameStateEnum.RUNNING) {
+    if (state == GameStateEnum.RUNNING) {
       return "Solve";
     }
-    if (gameState.state == GameStateEnum.FINISHED) {
+    if (state == GameStateEnum.FINISHED) {
       return "Finished";
     }
     return "New Game";
   };
 
   useEffect(() => {
-    console.log("useeffect gameState ", gameState);
+    console.log("useeffect gameState ", state);
     setButtonTitle(getGameStateTitle());
-  }, [gameState]);
+  }, [state]);
 
   return (
     <Container>
