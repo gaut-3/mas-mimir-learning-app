@@ -4,6 +4,8 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { AppProvider } from "./store/GameContext";
+import { BrowserRouter } from "react-router-dom";
+import { CardProvider } from "./store/CardContext";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -11,7 +13,11 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <AppProvider>
-      <App />
+      <CardProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </CardProvider>
     </AppProvider>
   </React.StrictMode>
 );

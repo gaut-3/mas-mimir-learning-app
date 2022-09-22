@@ -1,15 +1,15 @@
 import { createContext, ReactNode, useReducer } from 'react'
 import {gameReducer, initialGame} from "./GameReducer";
-import {Action} from "../models/Action";
+import {GameAction} from "../models/GameAction";
 import {GameState} from "../models/GameState";
 
 interface AppState extends GameState {
-    dispatch: (action: Action) => void
+    dispatch: (action: GameAction) => void
 }
 
 const initialState: AppState = {
     ...initialGame,
-    dispatch: (action: Action) => {}
+    dispatch: (action: GameAction) => {}
 }
 
 interface Props {

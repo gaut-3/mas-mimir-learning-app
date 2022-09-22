@@ -1,26 +1,20 @@
 import { GameStateEnum } from "../utils/GameStateEnum";
 import { GameState } from "../models/GameState";
-import { Action, ActionTypeEnum } from "../models/Action";
-
-export interface Card {
-  id: string;
-  front: string;
-  back: string;
-}
+import { GameAction, GameActionTypeEnum } from "../models/GameAction";
 
 export interface Answer {
   answer: string;
 }
 
-export function gameReducer(gameState: GameState, action: Action): GameState {
+export function gameReducer(gameState: GameState, action: GameAction): GameState {
   switch (action.type) {
-    case ActionTypeEnum.SetGame:
+    case GameActionTypeEnum.SetGame:
       return { game: action.game, state: GameStateEnum.RUNNING };
-    case ActionTypeEnum.DeleteGame:
+    case GameActionTypeEnum.DeleteGame:
       return initialGame;
-    case ActionTypeEnum.UpdateGame:
+    case GameActionTypeEnum.UpdateGame:
       return { ...gameState, game: action.game };
-    case ActionTypeEnum.FinishGame:
+    case GameActionTypeEnum.FinishGame:
       return { game: action.game, state: GameStateEnum.FINISHED };
   }
 }

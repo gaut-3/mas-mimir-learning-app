@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { deleteGame, patchAnswerGame } from "../../services/GameService";
 import { ChangeEvent, useContext, useState } from "react";
 import { AppContext } from "../../store/GameContext";
-import { ActionTypeEnum } from "../../models/Action";
+import { GameActionTypeEnum } from "../../models/GameAction";
 import { Answer } from "../../store/GameReducer";
 
 export const OngoingGameComponent = () => {
@@ -46,7 +46,7 @@ export const OngoingGameComponent = () => {
   const handleDeleteGameButton = () => {
     deleteGame().then((value) => {
       if (value) {
-        dispatch({ type: ActionTypeEnum.DeleteGame });
+        dispatch({ type: GameActionTypeEnum.DeleteGame });
       }
     });
   };
@@ -60,9 +60,9 @@ export const OngoingGameComponent = () => {
         console.log("ongoing finished awsdf ", game.solved.length, game.cardCount)
         if (value.solved.length === value.cardCount) {
           console.log("ongoing finished")
-          dispatch({ game: value, type: ActionTypeEnum.FinishGame });
+          dispatch({ game: value, type: GameActionTypeEnum.FinishGame });
         } else {
-          dispatch({ game: value, type: ActionTypeEnum.UpdateGame });
+          dispatch({ game: value, type: GameActionTypeEnum.UpdateGame });
         }
       }
     });

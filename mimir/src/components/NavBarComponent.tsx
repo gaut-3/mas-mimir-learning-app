@@ -2,7 +2,8 @@ import styled from "styled-components";
 import { useContext, useEffect, useState } from "react";
 import { GameStateEnum } from "../utils/GameStateEnum";
 import { AppContext } from "../store/GameContext";
-import {GameState} from "../models/GameState";
+import { GameState } from "../models/GameState";
+import { Link } from "react-router-dom";
 
 interface Props {
   gameState: GameState;
@@ -38,7 +39,7 @@ export const NavBarComponent = () => {
   `;
 
   const [buttonTitle, setButtonTitle] = useState<String>("New Game");
-  const {  game, state, dispatch } = useContext(AppContext);
+  const { game, state, dispatch } = useContext(AppContext);
 
   const getGameStateTitle = () => {
     if (state == GameStateEnum.NO_GAME) {
@@ -46,8 +47,8 @@ export const NavBarComponent = () => {
     }
     if (state == GameStateEnum.RUNNING) {
       let count = game.solved.length;
-      if(count === 0) {
-        count = 1
+      if (count === 0) {
+        count = 1;
       }
       return "Solve #" + count;
     }
@@ -71,7 +72,9 @@ export const NavBarComponent = () => {
         <Button>{buttonTitle}</Button>
       </Item>
       <Item alignment="right">
-        <Button>Manage Card</Button>
+        <Link to="/cards">
+          <Button>Manage Card</Button>
+        </Link>
       </Item>
     </Container>
   );

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { deleteGame, fetchNewGame } from "../../services/GameService";
-import { ActionTypeEnum } from "../../models/Action";
+import { GameActionTypeEnum } from "../../models/GameAction";
 import { useContext } from "react";
 import { AppContext } from "../../store/GameContext";
 
@@ -25,12 +25,12 @@ export const EndGameComponent = () => {
   const handleNewGameButton = () => {
     deleteGame().then((value) => {
       if (value) {
-        dispatch({ type: ActionTypeEnum.DeleteGame });
+        dispatch({ type: GameActionTypeEnum.DeleteGame });
       }
     });
     fetchNewGame().then((value) => {
       if (value) {
-        dispatch({ game: value, type: ActionTypeEnum.SetGame });
+        dispatch({ game: value, type: GameActionTypeEnum.SetGame });
       }
     });
   };

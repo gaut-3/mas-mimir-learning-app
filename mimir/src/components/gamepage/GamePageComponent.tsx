@@ -6,7 +6,7 @@ import { EndGameComponent } from "./EndGameComponent";
 import { GameStateEnum } from "../../utils/GameStateEnum";
 import { AppContext } from "../../store/GameContext";
 import { fetchGame } from "../../services/GameService";
-import { ActionTypeEnum } from "../../models/Action";
+import { GameActionTypeEnum } from "../../models/GameAction";
 
 const getGameStateComponent = (state: GameStateEnum) => {
   if (state === GameStateEnum.NO_GAME) {
@@ -45,13 +45,15 @@ export const GamePageComponent = () => {
       const game = await fetchGame();
       if (game) {
         if (game.solved.length === game.cardCount) {
-          dispatch({ game: game, type: ActionTypeEnum.FinishGame });
+          dispatch({ game: game, type: GameActionTypeEnum.FinishGame });
         } else {
-          dispatch({ game: game, type: ActionTypeEnum.SetGame });
+          dispatch({ game: game, type: GameActionTypeEnum.SetGame });
         }
       }
     };
-    onMount();
+    if (state !== GameStateEnum.NO_GAME) {
+      onMount();
+    }
   }, []);
 
   useEffect(() => {

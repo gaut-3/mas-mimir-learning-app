@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { fetchNewGame } from "../../services/GameService";
 import { AppContext } from "../../store/GameContext";
 import { useContext } from "react";
-import { ActionTypeEnum } from "../../models/Action";
+import { GameActionTypeEnum } from "../../models/GameAction";
 
 export const NewGameComponent = () => {
   const Container = styled.div`
@@ -26,7 +26,7 @@ export const NewGameComponent = () => {
   const handleNewGameButton = () => {
     fetchNewGame().then((value) => {
       if (value) {
-          dispatch({ game: value, type: ActionTypeEnum.SetGame });
+          dispatch({ game: value, type: GameActionTypeEnum.SetGame });
       }
     });
   };
