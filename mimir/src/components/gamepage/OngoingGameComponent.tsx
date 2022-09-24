@@ -71,7 +71,8 @@ export const OngoingGameComponent = () => {
   console.log("game ", game);
 
   const getGameProgression = () => {
-    return (game.solved.length / game.cardCount) * 100;
+    const progessionNumber = (game.solved.length / game.cardCount) * 100;
+    return Number((progessionNumber).toFixed(0));
   };
 
   const handleAnswerTextfield = (e: ChangeEvent<HTMLInputElement>) => {

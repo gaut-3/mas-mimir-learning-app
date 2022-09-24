@@ -69,7 +69,9 @@ export const NavBarComponent = () => {
         <h1>Mimir</h1>
       </Item>
       <Item alignment="center">
-        <Button>{buttonTitle}</Button>
+        <Link to="/">
+          <Button>{buttonTitle}</Button>
+        </Link>
       </Item>
       <Item alignment="right">
         <Link to="/cards">

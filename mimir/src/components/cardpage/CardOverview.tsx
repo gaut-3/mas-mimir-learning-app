@@ -19,6 +19,7 @@ export const CardOverviewComponent = () => {
     onMount();
   }, []);
 
+
   const Button = styled.button`
     background: black;
     border-radius: 3px;
@@ -50,7 +51,7 @@ export const CardOverviewComponent = () => {
 
   const CardContainer = styled.div`
     margin: 0 auto;
-    max-width: 500px;
+    max-width: 800px;
   `;
 
   const handleAddCardButton = () => {

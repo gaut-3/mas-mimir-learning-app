@@ -41,6 +41,7 @@ export const GamePageComponent = () => {
   `;
 
   useEffect(() => {
+    console.log("game ", state)
     const onMount = async () => {
       const game = await fetchGame();
       if (game) {
@@ -51,9 +52,7 @@ export const GamePageComponent = () => {
         }
       }
     };
-    if (state !== GameStateEnum.NO_GAME) {
       onMount();
-    }
   }, []);
 
   useEffect(() => {
