@@ -7,6 +7,7 @@ import { GameStateEnum } from "../../utils/GameStateEnum";
 import { AppContext } from "../../store/GameContext";
 import { fetchGame } from "../../services/GameService";
 import { GameActionTypeEnum } from "../../models/GameAction";
+import {useTranslation} from "../../utils/LanguageTranslation";
 
 const getGameStateComponent = (state: GameStateEnum) => {
   if (state === GameStateEnum.NO_GAME) {
@@ -39,6 +40,7 @@ export const GamePageComponent = () => {
     margin: 0 1em;
     padding: 0.25em 1em;
   `;
+  const test = useTranslation();
 
   useEffect(() => {
     console.log("game ", state)
