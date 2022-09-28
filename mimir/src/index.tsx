@@ -2,24 +2,25 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
+import {AppProvider} from "./store/GameContext";
+import {BrowserRouter} from "react-router-dom";
+import {CardProvider} from "./store/CardContext";
+import {I18nProvider} from "./store/I18nContext";
 import reportWebVitals from "./reportWebVitals";
-import { AppProvider } from "./store/GameContext";
-import { BrowserRouter } from "react-router-dom";
-import { CardProvider } from "./store/CardContext";
 
 const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
+    document.getElementById("root") as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    <AppProvider>
-      <CardProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </CardProvider>
-    </AppProvider>
-  </React.StrictMode>
+    <I18nProvider>
+        <AppProvider>
+            <CardProvider>
+                <BrowserRouter>
+                    <App/>
+                </BrowserRouter>
+            </CardProvider>
+        </AppProvider>
+    </I18nProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
