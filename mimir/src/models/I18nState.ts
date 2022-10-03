@@ -1,3 +1,4 @@
 export interface I18nState {
-    lang: string
+  lang: string;
+  translations:  { [key: string]: string };
 }

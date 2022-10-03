@@ -6,6 +6,10 @@ import {GameState} from "../models/GameState";
 import {Link} from "react-router-dom";
 import {I18nContext} from "../store/I18nContext";
 import {I18nActionTypeEnum} from "../models/i18nAction";
+import {fetchTranslations} from "../services/i18nService";
+import {fetchCards} from "../services/CardService";
+import {CardActionTypeEnum} from "../models/CardAction";
+import {useTranslation} from "../utils/LanguageTranslation";
 
 interface Props {
     gameState: GameState;
@@ -46,7 +50,8 @@ export const NavBarComponent = () => {
 
     const [buttonTitle, setButtonTitle] = useState<String>("New Game");
     const {game, state} = useContext(AppContext);
-    const {lang, dispatch} = useContext(I18nContext);
+    const {lang, translations, dispatch} = useContext(I18nContext);
+    const translate = useTranslation();
 
     const getGameStateTitle = () => {
         if (state == GameStateEnum.NO_GAME) {
@@ -72,11 +77,17 @@ export const NavBarComponent = () => {
         setButtonTitle(getGameStateTitle());
     }, [state]);
 
-    const changeLangugeClick = (lang: string) => {
+    const changeLangugeClick = async (lang: string) => {
         console.log("asdfasdf")
-        dispatch({lang: lang, type: I18nActionTypeEnum.SetLanguage})
+        const newTranslations = await fetchTranslations(lang);
+        if (newTranslations) {
+            dispatch({lang: lang, translation: newTranslations, type: I18nActionTypeEnum.SetLanguage})
+        }
     }
 
+    console.log("language ", lang, translations)
+
+    console.log("language ", translations["newGameButton"])
     return (
         <Container justifyContent="space-between">
             <Item alignment="left">

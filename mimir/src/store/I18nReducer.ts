@@ -7,11 +7,12 @@ export function i18nReducer(
 ): I18nState {
     switch (action.type) {
         case I18nActionTypeEnum.SetLanguage:
-            return {lang: action.lang};
+            return {lang: action.lang, translations: action.translation};
     }
 }
 
 export const initialLanguage: I18nState = {
     lang: "de",
+    translations: {  },
 };
 

@@ -1,6 +1,7 @@
 type SetLanguageAction = {
     type: I18nActionTypeEnum.SetLanguage;
     lang: string;
+    translation: {}
 };
 
 export enum I18nActionTypeEnum {
