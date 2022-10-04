@@ -1,4 +1,12 @@
 {
+  "navbar": {
+    "newGameButton": "Neues Spiel"
+  },
+  "gamePage": {
+    "newGamePage" : {
+      "deleteGameButton": "Delete Spiel"
+    }
+  },
   "newGameButton": "Neues Spiel",
   "manageCardButton": "Karten verwalten"
 }
