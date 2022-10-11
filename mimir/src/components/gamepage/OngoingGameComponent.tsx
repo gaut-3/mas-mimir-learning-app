@@ -4,6 +4,7 @@ import { ChangeEvent, useContext, useState } from "react";
 import { AppContext } from "../../store/GameContext";
 import { GameActionTypeEnum } from "../../models/GameAction";
 import { Answer } from "../../store/GameReducer";
+import useTranslation from "../../utils/LanguageTranslation";
 
 export const OngoingGameComponent = () => {
   const Container = styled.div`
@@ -40,6 +41,7 @@ export const OngoingGameComponent = () => {
     padding-top: 50%;
     margin: 0;
   `;
+  const translate = useTranslation();
   const [answerText, setAnswerText] = useState("");
   const { game, state, dispatch } = useContext(AppContext);
 
@@ -57,9 +59,13 @@ export const OngoingGameComponent = () => {
     };
     patchAnswerGame(answer).then((value) => {
       if (value) {
-        console.log("ongoing finished awsdf ", game.solved.length, game.cardCount)
+        console.log(
+          "ongoing finished awsdf ",
+          game.solved.length,
+          game.cardCount
+        );
         if (value.solved.length === value.cardCount) {
-          console.log("ongoing finished")
+          console.log("ongoing finished");
           dispatch({ game: value, type: GameActionTypeEnum.FinishGame });
         } else {
           dispatch({ game: value, type: GameActionTypeEnum.UpdateGame });
@@ -68,11 +74,9 @@ export const OngoingGameComponent = () => {
     });
   };
 
-  console.log("game ", game);
-
   const getGameProgression = () => {
     const progessionNumber = (game.solved.length / game.cardCount) * 100;
-    return Number((progessionNumber).toFixed(0));
+    return Number(progessionNumber.toFixed(0));
   };
 
   const handleAnswerTextfield = (e: ChangeEvent<HTMLInputElement>) => {
@@ -83,7 +87,9 @@ export const OngoingGameComponent = () => {
     <>
       <Container>
         <div>
-          <h2>Progess {getGameProgression()}%</h2>
+          <h2>
+            {translate("progressTitle")} {getGameProgression()}%
+          </h2>
         </div>
         <div>
           <Button onClick={handleDeleteGameButton}>Delete Game</Button>
@@ -102,7 +108,9 @@ export const OngoingGameComponent = () => {
             value={answerText}
             onChange={handleAnswerTextfield}
           />
-          <Button onClick={handleAnwserButton}>Submit</Button>
+          <Button onClick={handleAnwserButton}>
+            {translate("submitButton")}
+          </Button>
         </div>
       </Content>
     </>

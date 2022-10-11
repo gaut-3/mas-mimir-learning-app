@@ -3,9 +3,11 @@ import { deleteGame, fetchNewGame } from "../../services/GameService";
 import { GameActionTypeEnum } from "../../models/GameAction";
 import { useContext } from "react";
 import { AppContext } from "../../store/GameContext";
+import useTranslation from "../../utils/LanguageTranslation";
 
 export const EndGameComponent = () => {
   const { game, state, dispatch } = useContext(AppContext);
+  const translate = useTranslation();
 
   const Container = styled.div`
     display: flex;

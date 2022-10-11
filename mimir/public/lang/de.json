@@ -1,12 +1,15 @@
 {
-  "navbar": {
-    "newGameButton": "Neues Spiel"
-  },
-  "gamePage": {
-    "newGamePage" : {
-      "deleteGameButton": "Delete Spiel"
-    }
-  },
   "newGameButton": "Neues Spiel",
-  "manageCardButton": "Karten verwalten"
+  "finishedGameButton": "Fertig",
+  "runningGameButton": "Solve #",
+  "manageCardButton": "Karten verwalten",
+  "progressTitle": "Progress",
+  "submitButton": "Submit",
+  "startNewGameButton": "Neues Spiel starten",
+  "noGameRunningText": "Kein Spiel läuft",
+  "solvedTotalText": "Gelöst {} von {} korrekt",
+  "solvedFrontHeaderText": "Vorderseite",
+  "solvedBackHeaderText": "Rückseite",
+  "solvedYourAnswerHeaderText": "Deine Antwort",
+  "solvedAcceptedHeaderText": "Lösung"
 }

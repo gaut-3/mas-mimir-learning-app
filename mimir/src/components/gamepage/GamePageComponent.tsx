@@ -7,26 +7,30 @@ import { GameStateEnum } from "../../utils/GameStateEnum";
 import { AppContext } from "../../store/GameContext";
 import { fetchGame } from "../../services/GameService";
 import { GameActionTypeEnum } from "../../models/GameAction";
-
-const getGameStateComponent = (state: GameStateEnum) => {
-  if (state === GameStateEnum.NO_GAME) {
-    return <NewGameComponent />;
-  }
-  if (state === GameStateEnum.RUNNING) {
-    return <OngoingGameComponent />;
-  }
-  if (state === GameStateEnum.FINISHED) {
-    return <EndGameComponent />;
-  }
-  return <NewGameComponent />;
-};
+import useTranslation from "../../utils/LanguageTranslation";
+import { I18nContext } from "../../store/I18nContext";
 
 export const GamePageComponent = () => {
+  const translate = useTranslation();
+  const getGameStateComponent = (state: GameStateEnum) => {
+    console.log("getGameStateComponent", translate("newGameButton"));
+    if (state === GameStateEnum.NO_GAME) {
+      return <NewGameComponent translate={translate} />;
+    }
+    if (state === GameStateEnum.RUNNING) {
+      return <OngoingGameComponent />;
+    }
+    if (state === GameStateEnum.FINISHED) {
+      return <EndGameComponent />;
+    }
+    return <NewGameComponent translate={translate} />;
+  };
   const { state, dispatch } = useContext(AppContext);
   const [gameStateComponent, setGameStateComponent] = useState(
     getGameStateComponent(state)
   );
 
+  console.log("translate gamepage", translate("newGameButton"));
   const Container = styled.div`
     display: flex;
     flexdirection: row;
@@ -41,7 +45,6 @@ export const GamePageComponent = () => {
   `;
 
   useEffect(() => {
-    console.log("game ", state)
     const onMount = async () => {
       const game = await fetchGame();
       if (game) {
@@ -52,12 +55,20 @@ export const GamePageComponent = () => {
         }
       }
     };
-      onMount();
+    onMount();
   }, []);
 
   useEffect(() => {
     setGameStateComponent(getGameStateComponent(state));
   }, [state]);
 
-  return gameStateComponent;
+  return (
+    <>
+      {(state === GameStateEnum.NO_GAME && (
+        <NewGameComponent translate={translate} />
+      )) ||
+        (state === GameStateEnum.RUNNING && <OngoingGameComponent />) ||
+        (state === GameStateEnum.FINISHED && <EndGameComponent />)}
+    </>
+  );
 };

@@ -1,4 +1,15 @@
 {
   "newGameButton": "New Game",
-  "manageCardButton": "Manage Card"
+  "finishedGameButton": "Finished",
+  "runningGameButton": "Solve #",
+  "manageCardButton": "Manage Card",
+  "progressTitle": "Progress",
+  "submitButton": "Submit",
+  "startNewGameButton": "Start New Game",
+  "noGameRunningText": "No game running",
+  "solvedTotalText": "Solved {} out of {} correctly",
+  "solvedFrontHeaderText": "Front",
+  "solvedBackHeaderText": "Back",
+  "solvedYourAnswerHeaderText": "Your Answer",
+  "solvedAcceptedHeaderText": "Accepted"
 }

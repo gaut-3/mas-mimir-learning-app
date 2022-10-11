@@ -1,6 +1,15 @@
 {
-  "navbar": {
-    "newGameButton": "Neues Spiel",
-    "manageCardButton": "Karten verwalten"
-  }
+  "newGameButton": "Neues Spiel",
+  "finishedGameButton": "Fertig",
+  "runningGameButton": "Solve #",
+  "manageCardButton": "Karten verwalten",
+  "progressTitle": "Progress",
+  "submitButton": "Submit",
+  "startNewGameButton": "Start New Game",
+  "noGameRunningText": "No game running",
+  "solvedTotalText": "Solved {} out of {} correctly",
+  "solvedFrontHeaderText": "Front",
+  "solvedBackHeaderText": "Back",
+  "solvedYourAnswerHeaderText": "Your Answer",
+  "solvedAcceptedHeaderText": "Accepted"
 }

@@ -15,7 +15,7 @@ function App() {
   useEffect(() => {
     if (lang || translations) {
       const onMount = async () => {
-        const newTranslations = await fetchTranslations("de");
+        const newTranslations = await fetchTranslations("en");
         if (newTranslations) {
           dispatch({
             lang: lang,
@@ -31,12 +31,11 @@ function App() {
 
   return (
     <div className="App">
-      <NavBarComponent></NavBarComponent>
+      <NavBarComponent />
       <Routes>
         <Route path="/" element={<GamePageComponent />} />
         <Route path="/cards" element={<CardOverviewComponent />} />
         <Route path="/cards/:cardId" element={<CardDetail />} />
-        <Route></Route>
       </Routes>
     </div>
   );
