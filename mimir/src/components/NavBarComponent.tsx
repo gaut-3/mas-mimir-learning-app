@@ -4,8 +4,9 @@ import { GameStateEnum } from "../utils/GameStateEnum";
 import { AppContext } from "../store/GameContext";
 import { GameState } from "../models/GameState";
 import { Link } from "react-router-dom";
-import useTranslation from "../utils/LanguageTranslation";
+import useTranslation from "../hooks/LanguageTranslation";
 import { LanguageComponent } from "./LanguageComponent";
+import { Button } from "elements/Button";
 
 interface Props {
   gameState: GameState;
@@ -29,6 +30,7 @@ export const NavBarComponent = () => {
     justify-content: ${(p) => p.justifyContent};
     background-color: blue;
     padding: 0 5px;
+    margin-bottom:25px;
   `;
 
   const Item = styled.div<ItemProps>`
@@ -38,32 +40,29 @@ export const NavBarComponent = () => {
     justify-content: right;
   `;
 
-  const Button = styled.button`
-    background: black;
-    border-radius: 3px;
-    color: white;
-    margin: 0 1em;
-    padding: 1.25em 3em;
-  `;
 
   const [buttonTitle, setButtonTitle] = useState<string>("newGameButton");
   const { game, state } = useContext(AppContext);
 
   const getGameStateTitle = () => {
-    if (state == GameStateEnum.NO_GAME) {
-      return "newGameButton";
-    }
     if (state == GameStateEnum.RUNNING) {
-      let count = game.solved.length;
-      if (count === 0) {
-        count = 1;
-      }
-      return "Solve #" + count;
+      return "runningGameButton";
     }
     if (state == GameStateEnum.FINISHED) {
       return "finishedGameButton";
     }
     return "newGameButton";
+  };
+
+  const getCountNumberGameRunning = (): string => {
+    if (state == GameStateEnum.RUNNING) {
+      let count = game.solved.length;
+      if (count === 0) {
+        count = 1;
+      }
+      return count.toString();
+    }
+    return "";
   };
 
   useEffect(() => {
@@ -80,7 +79,9 @@ export const NavBarComponent = () => {
       </Item>
       <Item alignment="center">
         <Link to="/">
-          <Button>{translate(buttonTitle)}</Button>
+          <Button>
+            {translate(buttonTitle, [getCountNumberGameRunning()]) }
+          </Button>
         </Link>
       </Item>
       <Item alignment="right">

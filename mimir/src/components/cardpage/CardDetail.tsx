@@ -5,6 +5,8 @@ import {Card} from "../../models/Card";
 import {useParams} from "react-router-dom";
 import {CardContext} from "../../store/CardContext";
 import {CardActionTypeEnum} from "../../models/CardAction";
+import { Textfield } from "../../elements/Textfield";
+import {Button, ButtonSize} from "elements/Button";
 
 export const CardDetail = () => {
     const {cardId} = useParams<{ cardId: string }>();
@@ -38,14 +40,6 @@ export const CardDetail = () => {
         }
     };
 
-    const Button = styled.button`
-    background: black;
-    border-radius: 3px;
-    color: white;
-    margin: 0 1em;
-    padding: 1.25em 3em;
-  `;
-
     const frontText = useRef<HTMLInputElement>(null);
     const backText = useRef<HTMLInputElement>(null);
     const CardItem = styled.div`
@@ -59,7 +53,20 @@ export const CardDetail = () => {
 
     const CardAdd = styled.div`
     display: grid;
-    grid-template-columns: 2fr 2fr 0.5fr 0.5fr;
+    grid-template-columns: 2fr 2fr 1fr;
+    gap: 10px;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px black solid;
+    align-items: center;
+    div:nth-child(3) {
+        text-align:right
+    }
+  `;
+
+    const CardHeader = styled.div`
+    display: grid;
+    grid-template-columns: 2fr 2fr 1fr;
     gap: 10px;
     margin-bottom: 15px;
     padding-bottom: 15px;
@@ -68,7 +75,8 @@ export const CardDetail = () => {
 
     const CardContainer = styled.div`
     margin: 0 auto;
-    max-width: 500px;
+    max-width: 800px;
+    text-align: left;
   `;
 
     const handleUpdateButton = () => {
@@ -93,20 +101,14 @@ export const CardDetail = () => {
 
     return (
         <CardContainer>
-            <CardAdd>
+            <CardHeader>
                 <div>Front</div>
                 <div>Back</div>
-            </CardAdd>
+            </CardHeader>
             <CardAdd>
-                <div>
-                    <input type="text" defaultValue={card?.front} ref={frontText}/>
-                </div>
-                <div>
-                    <input type="text" defaultValue={card?.back} ref={backText}/>
-                </div>
-                <div>
-                    <Button onClick={handleUpdateButton}>Update</Button>
-                </div>
+                <div><Textfield type="text" defaultValue={card?.front} ref={frontText}/></div>
+                <div><Textfield type="text" defaultValue={card?.back} ref={backText}/></div>
+                <div><Button size={ButtonSize.SMALL} onClick={handleUpdateButton}>Update</Button></div>
             </CardAdd>
         </CardContainer>
     );

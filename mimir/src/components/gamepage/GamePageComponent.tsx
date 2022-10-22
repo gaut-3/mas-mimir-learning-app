@@ -7,7 +7,7 @@ import { GameStateEnum } from "../../utils/GameStateEnum";
 import { AppContext } from "../../store/GameContext";
 import { fetchGame } from "../../services/GameService";
 import { GameActionTypeEnum } from "../../models/GameAction";
-import useTranslation from "../../utils/LanguageTranslation";
+import useTranslation from "../../hooks/LanguageTranslation";
 import { I18nContext } from "../../store/I18nContext";
 
 export const GamePageComponent = () => {
@@ -34,14 +34,6 @@ export const GamePageComponent = () => {
   const Container = styled.div`
     display: flex;
     flexdirection: row;
-  `;
-  const Button = styled.button`
-    background: transparent;
-    border-radius: 3px;
-    border: 2px solid palevioletred;
-    color: palevioletred;
-    margin: 0 1em;
-    padding: 0.25em 1em;
   `;
 
   useEffect(() => {

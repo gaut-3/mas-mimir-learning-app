@@ -4,7 +4,7 @@ import { ChangeEvent, useContext, useState } from "react";
 import { AppContext } from "../../store/GameContext";
 import { GameActionTypeEnum } from "../../models/GameAction";
 import { Answer } from "../../store/GameReducer";
-import useTranslation from "../../utils/LanguageTranslation";
+import useTranslation from "../../hooks/LanguageTranslation";
 
 export const OngoingGameComponent = () => {
   const Container = styled.div`

@@ -5,6 +5,8 @@ import { Card } from "../../models/Card";
 import { CardContext } from "../../store/CardContext";
 import { CardActionTypeEnum } from "../../models/CardAction";
 import { Link } from "react-router-dom";
+import { Button, ButtonSize } from "elements/Button";
+import { Textfield } from "elements/Textfield";
 
 export const CardOverviewComponent = () => {
   const { cards, dispatch } = useContext(CardContext);
@@ -19,15 +21,6 @@ export const CardOverviewComponent = () => {
     onMount();
   }, []);
 
-
-  const Button = styled.button`
-    background: black;
-    border-radius: 3px;
-    color: white;
-    margin: 0 1em;
-    padding: 1.25em 3em;
-  `;
-
   const frontText = useRef<HTMLInputElement>(null);
   const backText = useRef<HTMLInputElement>(null);
 
@@ -38,6 +31,8 @@ export const CardOverviewComponent = () => {
     margin-bottom: 15px;
     padding-bottom: 15px;
     border-bottom: 1px black solid;
+    align-items: center;
+    text-align: left
   `;
 
   const CardAdd = styled.div`
@@ -47,6 +42,7 @@ export const CardOverviewComponent = () => {
     margin-bottom: 15px;
     padding-bottom: 15px;
     border-bottom: 1px black solid;
+    text-align: left
   `;
 
   const CardContainer = styled.div`
@@ -85,10 +81,10 @@ export const CardOverviewComponent = () => {
     <CardContainer>
       <CardAdd>
         <div>
-          <input type="text" ref={frontText} />
+          <Textfield type="text" ref={frontText} />
         </div>
         <div>
-          <input type="text" ref={backText} />
+          <Textfield type="text" ref={backText} />
         </div>
         <div>
           <Button onClick={handleAddCardButton}>Add</Button>
@@ -101,13 +97,14 @@ export const CardOverviewComponent = () => {
             <div>{card.back}</div>
             <div>
               <Link to={"/cards/" + card.id}>
-                <Button>
-                  Edit
-                </Button>
+                <Button  size={ButtonSize.SMALL}>Edit</Button>
               </Link>
             </div>
             <div>
-              <Button onClick={(e) => handleDeleteButton(e, card)}>
+              <Button
+                size={ButtonSize.SMALL}
+                onClick={(e) => handleDeleteButton(e, card)}
+              >
                 Delete
               </Button>
             </div>

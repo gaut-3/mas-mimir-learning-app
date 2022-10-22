@@ -3,18 +3,19 @@ import {fetchTranslations} from "../services/i18nService";
 import {I18nActionTypeEnum} from "../models/i18nAction";
 import {useContext} from "react";
 import {I18nContext} from "../store/I18nContext";
+import {LanguageEnum} from "../utils/LanguageEnum";
 
 export const LanguageComponent = () => {
     const Button = styled.button`
-    background: black;
+    background: #02E0FF;
     border-radius: 3px;
-    color: white;
-    margin: 0 1em;
-    padding: 1.25em 3em;
+    color: black;
+    margin: 0 2px;
+    padding: 0.5em 1em;
   `;
     const { dispatch } = useContext(I18nContext);
 
-    const changeLangugeClick = async (lang: string) => {
+    const changeLangugeClick = async (lang: LanguageEnum) => {
         const newTranslations = await fetchTranslations(lang);
         if (newTranslations) {
             dispatch({
@@ -27,8 +28,8 @@ export const LanguageComponent = () => {
 
     return (
         <>
-            <Button onClick={() => changeLangugeClick("de")}>de</Button>
-            <Button onClick={() => changeLangugeClick("en")}>en</Button>
+            <Button onClick={() => changeLangugeClick(LanguageEnum.DE)}>de</Button>
+            <Button onClick={() => changeLangugeClick(LanguageEnum.EN)}>en</Button>
         </>
     )
 

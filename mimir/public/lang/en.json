@@ -1,7 +1,7 @@
 {
   "newGameButton": "New Game",
   "finishedGameButton": "Finished",
-  "runningGameButton": "Solve #",
+  "runningGameButton": "Solve #{}",
   "manageCardButton": "Manage Card",
   "progressTitle": "Progress",
   "submitButton": "Submit",
