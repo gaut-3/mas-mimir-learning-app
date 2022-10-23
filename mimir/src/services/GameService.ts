@@ -1,13 +1,13 @@
-import {Game} from "../models/Game";
-import {Answer} from "../store/GameReducer";
+import { Game } from "../models/Game";
+import { Answer } from "../store/GameReducer";
 
 export const fetchNewGame = async (): Promise<Game | null> => {
-    const response = await fetch("/api/game", {method: "POST"});
-    if (response.ok) {
-        const game = await response.json();
-        return game;
-    }
-    return null
+  const response = await fetch("/api/game", { method: "POST" });
+  if (response.ok) {
+    const game = await response.json();
+    return game;
+  }
+  return null;
 };
 
 export const fetchGame = async (): Promise<Game | null> => {

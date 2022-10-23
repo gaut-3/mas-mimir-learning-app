@@ -14,36 +14,6 @@ export const OngoingGameComponent = () => {
   const translate = useTranslation();
   const [answerText, setAnswerText] = useState("");
 
-  const CardContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    margin: 20px 20px;
-  `;
-
-  const Card = styled.div`
-    display: flex;
-    min-height: 400px;
-    min-width: 400px;
-    border: solid black 1px;
-    justify-content: center;
-    align-items: center;
-  `;
-
-  const FlexboxRow = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    column-gap: 20px;
-    width: 100%;
-  `;
-
-  const Word = styled.div`
-    font-weight: bold;
-    font-size: 50px;
-  `;
-
   const getGameProgression = () => {
     const progessionNumber = (game.solved.length / game.cardCount) * 100;
     return Number(progessionNumber.toFixed(0));
@@ -76,6 +46,36 @@ export const OngoingGameComponent = () => {
   const handleAnswerTextfield = (e: ChangeEvent<HTMLInputElement>) => {
     setAnswerText(e.target.value);
   };
+
+  const CardContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 20px;
+  `;
+
+  const Card = styled.div`
+    display: flex;
+    min-height: 400px;
+    min-width: 400px;
+    border: solid black 1px;
+    justify-content: center;
+    align-items: center;
+  `;
+
+  const FlexboxRow = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    column-gap: 20px;
+    width: 100%;
+  `;
+
+  const Word = styled.div`
+    font-weight: bold;
+    font-size: 50px;
+  `;
 
   return (
     <>

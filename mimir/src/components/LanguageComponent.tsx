@@ -1,5 +1,8 @@
 import styled from "styled-components";
-import {fetchTranslations, saveLangToLocalStorage} from "../services/i18nService";
+import {
+  fetchTranslations,
+  saveLangToLocalStorage,
+} from "../services/i18nService";
 import { I18nActionTypeEnum } from "../models/i18nAction";
 import { useContext } from "react";
 import { I18nContext } from "../store/I18nContext";
@@ -16,9 +19,10 @@ export const LanguageComponent = () => {
         translation: newTranslations,
         type: I18nActionTypeEnum.SetLanguage,
       });
-      saveLangToLocalStorage(lang)
+      saveLangToLocalStorage(lang);
     }
   };
+
   const LanguageContainer = styled.div`
     display: flex;
     column-gap: 5px;
@@ -31,7 +35,7 @@ export const LanguageComponent = () => {
     }
   `;
 
-  const LanguageElements = styled.div<LanguageContainerProps>`
+  const Items = styled.div<LanguageContainerProps>`
     font-weight: ${(p) => (p.active ? "bold" : "normal")};
     &:hover {
       background: black;
@@ -46,19 +50,19 @@ export const LanguageComponent = () => {
 
   return (
     <LanguageContainer>
-      <LanguageElements
+      <Items
         {...(lang === LanguageEnum.EN ? { active: true } : {})}
         onClick={() => changeLangugeClick(LanguageEnum.EN)}
       >
         {LanguageEnum.EN.toUpperCase()}
-      </LanguageElements>
+      </Items>
       <div>/</div>
-      <LanguageElements
+      <Items
         {...(lang === LanguageEnum.DE ? { active: true } : {})}
         onClick={() => changeLangugeClick(LanguageEnum.DE)}
       >
         {LanguageEnum.DE.toUpperCase()}
-      </LanguageElements>
+      </Items>
     </LanguageContainer>
   );
 };

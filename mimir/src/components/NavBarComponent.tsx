@@ -8,36 +8,13 @@ import { LanguageComponent } from "./LanguageComponent";
 import { Button } from "elements/Button";
 
 export const NavBarComponent = () => {
-  const translate = useTranslation();
-
-  interface ContainerProps {
-    justifyContent: string;
-  }
-
-  interface ItemProps {
-    alignment: string;
-  }
-
-  const Container = styled.div<ContainerProps>`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: ${(p) => p.justifyContent};
-    background-color: blue;
-    padding: 0 5px;
-    margin-bottom: 25px;
-    align-items: baseline;
-  `;
-
-  const Item = styled.div<ItemProps>`
-    margin: 10px;
-    text-align: ${(p) => p.alignment};
-    width: 100%;
-    justify-content: right;
-  `;
-
-  const [buttonTitle, setButtonTitle] = useState<string>("newGameButton");
   const { game, state } = useContext(AppContext);
+  const translate = useTranslation();
+  const [buttonTitle, setButtonTitle] = useState<string>("newGameButton");
+
+  useEffect(() => {
+    setButtonTitle(getGameStateTitle());
+  }, [state]);
 
   const getGameStateTitle = () => {
     if (state == GameStateEnum.RUNNING) {
@@ -57,17 +34,40 @@ export const NavBarComponent = () => {
     return "";
   };
 
-  useEffect(() => {
-    setButtonTitle(getGameStateTitle());
-  }, [state]);
+  const NavbarContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: "space-between";
+    background-color: blue;
+    margin-bottom: 25px;
+  `;
+
+  const LanguageLogoContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: left;
+    column-gap: 10px;
+  `;
+
+  const Item = styled.div<ItemProps>`
+    margin: 10px;
+    text-align: ${(p) => p.alignment};
+    width: 100%;
+  `;
+
+  interface ItemProps {
+    alignment: string;
+  }
 
   return (
-    <Container justifyContent="space-between">
+    <NavbarContainer>
       <Item alignment="left">
-        <Container justifyContent="left">
+        <LanguageLogoContainer>
           <h1>{translate("logoTitle")}</h1>
           <LanguageComponent />
-        </Container>
+        </LanguageLogoContainer>
       </Item>
       <Item alignment="center">
         <Link to="/">
@@ -81,6 +81,6 @@ export const NavBarComponent = () => {
           <Button>{translate("manageCardButton")}</Button>
         </Link>
       </Item>
-    </Container>
+    </NavbarContainer>
   );
 };

@@ -8,8 +8,10 @@ export function cardReducer(
   switch (action.type) {
     case CardActionTypeEnum.SetCards:
       return { cards: action.cards };
+
     case CardActionTypeEnum.AddCard:
       return { cards: [...cardState.cards, action.card] };
+
     case CardActionTypeEnum.UpdateCard:
       const newCardState = cardState.cards.map((card) => {
         if (card.id === action.card.id) {
@@ -18,6 +20,7 @@ export function cardReducer(
         return card;
       });
       return { cards: newCardState };
+
     case CardActionTypeEnum.DeleteCard:
       const newCards = cardState.cards.filter(
         (card) => card.id !== action.card.id
@@ -29,4 +32,3 @@ export function cardReducer(
 export const initialCards: CardState = {
   cards: [],
 };
-

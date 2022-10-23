@@ -36,6 +36,27 @@ export const CardDetail = () => {
     onSelectCard();
   }, [cards]);
 
+  const handleUpdateButton = () => {
+    if (
+      frontText.current &&
+      frontText.current.value &&
+      backText.current &&
+      backText.current.value
+    ) {
+      const card: Card = {
+        front: frontText.current.value,
+        back: backText.current.value,
+        id: cardId,
+      };
+      updateCard(card).then((value) => {
+        if (value) {
+          dispatch({ card: value, type: CardActionTypeEnum.UpdateCard });
+        }
+      });
+      navigate("/cards");
+    }
+  };
+
   const onSelectCard = () => {
     const card = cards.find((card) => card.id === cardId);
     console.log(cards);
@@ -61,27 +82,6 @@ export const CardDetail = () => {
   const CardHeader = styled.div`
     font-weight: bold;
   `;
-
-  const handleUpdateButton = () => {
-    if (
-      frontText.current &&
-      frontText.current.value &&
-      backText.current &&
-      backText.current.value
-    ) {
-      const card: Card = {
-        front: frontText.current.value,
-        back: backText.current.value,
-        id: cardId,
-      };
-      updateCard(card).then((value) => {
-        if (value) {
-          dispatch({ card: value, type: CardActionTypeEnum.UpdateCard });
-        }
-      });
-      navigate("/cards");
-    }
-  };
 
   return (
     <CardAddContainer>

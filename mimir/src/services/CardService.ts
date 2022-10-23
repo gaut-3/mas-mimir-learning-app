@@ -1,4 +1,4 @@
-import {Card} from "../models/Card";
+import { Card } from "../models/Card";
 
 export const fetchCards = async (): Promise<Card[] | null> => {
   const response = await fetch("/api/cards", { method: "GET" });

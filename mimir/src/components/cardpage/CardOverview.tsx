@@ -14,6 +14,9 @@ export const CardOverviewComponent = () => {
   const translate = useTranslation();
   const { cards, dispatch } = useContext(CardContext);
 
+  const frontText = useRef<HTMLInputElement>(null);
+  const backText = useRef<HTMLInputElement>(null);
+
   useEffect(() => {
     const onMount = async () => {
       const cards = await fetchCards();
@@ -23,25 +26,6 @@ export const CardOverviewComponent = () => {
     };
     onMount();
   }, []);
-
-  const frontText = useRef<HTMLInputElement>(null);
-  const backText = useRef<HTMLInputElement>(null);
-
-  const CardGrid = styled.div`
-    display: grid;
-    grid-template-columns: 2fr 2fr 0.5fr 0.5fr;
-    column-gap: 10px;
-    align-items: center;
-    text-align: left;
-  `;
-
-  const CardElement = styled.div`
-    grid-area: 1 / 3 / 1 / span 2;
-
-    ${Button} {
-      width: 100%;
-    }
-  `;
 
   const handleAddCardButton = () => {
     if (
@@ -69,6 +53,22 @@ export const CardOverviewComponent = () => {
       }
     });
   };
+
+  const CardGrid = styled.div`
+    display: grid;
+    grid-template-columns: 2fr 2fr 0.5fr 0.5fr;
+    column-gap: 10px;
+    align-items: center;
+    text-align: left;
+  `;
+
+  const CardElement = styled.div`
+    grid-area: 1 / 3 / 1 / span 2;
+
+    ${Button} {
+      width: 100%;
+    }
+  `;
 
   return (
     <CardGrid>
