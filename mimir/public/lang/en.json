@@ -3,6 +3,7 @@
   "finishedGameButton": "Finished",
   "runningGameButton": "Solve #{}",
   "manageCardButton": "Manage Card",
+  "deleteGameButton": "Delete Game",
   "progressTitle": "Progress",
   "submitButton": "Submit",
   "startNewGameButton": "Start New Game",
@@ -11,5 +12,10 @@
   "solvedFrontHeaderText": "Front",
   "solvedBackHeaderText": "Back",
   "solvedYourAnswerHeaderText": "Your Answer",
-  "solvedAcceptedHeaderText": "Accepted"
+  "solvedAcceptedHeaderText": "Accepted",
+  "deleteButton": "Delete",
+  "editButton": "Edit",
+  "addButton": "Add",
+  "inputPlaceholderTextFront": "Front",
+  "inputPlaceholderTextBack": "Back"
 }

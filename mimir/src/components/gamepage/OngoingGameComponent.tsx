@@ -92,7 +92,7 @@ export const OngoingGameComponent = () => {
           </h2>
         </div>
         <div>
-          <Button onClick={handleDeleteGameButton}>Delete Game</Button>
+          <Button onClick={handleDeleteGameButton}>{translate("deleteGameButton")}</Button>
         </div>
       </Container>
       <Content>

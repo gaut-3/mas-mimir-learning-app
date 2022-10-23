@@ -6,27 +6,29 @@ import { Route, Routes } from "react-router-dom";
 import { CardOverviewComponent } from "./components/cardpage/CardOverview";
 import { CardDetail } from "./components/cardpage/CardDetail";
 import { I18nContext } from "./store/I18nContext";
-import { fetchTranslations } from "./services/i18nService";
+import {
+  fetchTranslations,
+  getLangFromLocalStorage,
+} from "./services/i18nService";
 import { I18nActionTypeEnum } from "./models/i18nAction";
 
 function App() {
-  const { lang, translations, dispatch } = useContext(I18nContext);
+  const { dispatch } = useContext(I18nContext);
 
   useEffect(() => {
-    if (lang || translations) {
-      const onMount = async () => {
-        const newTranslations = await fetchTranslations("en");
-        if (newTranslations) {
-          dispatch({
-            lang: lang,
-            translation: newTranslations,
-            type: I18nActionTypeEnum.SetLanguage,
-          });
-        }
-      };
+    const onMount = async () => {
+      const langFromLocalStorage = getLangFromLocalStorage();
+      const newTranslations = await fetchTranslations(langFromLocalStorage);
+      if (newTranslations) {
+        dispatch({
+          lang: langFromLocalStorage,
+          translation: newTranslations,
+          type: I18nActionTypeEnum.SetLanguage,
+        });
+      }
+    };
 
-      onMount();
-    }
+    onMount();
   }, []);
 
   return (

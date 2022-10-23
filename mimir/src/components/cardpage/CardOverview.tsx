@@ -7,9 +7,11 @@ import { CardActionTypeEnum } from "../../models/CardAction";
 import { Link } from "react-router-dom";
 import { Button, ButtonSize } from "elements/Button";
 import { Textfield } from "elements/Textfield";
+import useTranslation from "../../hooks/LanguageTranslation";
 
 export const CardOverviewComponent = () => {
   const { cards, dispatch } = useContext(CardContext);
+  const translate = useTranslation();
 
   useEffect(() => {
     const onMount = async () => {
@@ -32,7 +34,7 @@ export const CardOverviewComponent = () => {
     padding-bottom: 15px;
     border-bottom: 1px black solid;
     align-items: center;
-    text-align: left
+    text-align: left;
   `;
 
   const CardAdd = styled.div`
@@ -42,12 +44,20 @@ export const CardOverviewComponent = () => {
     margin-bottom: 15px;
     padding-bottom: 15px;
     border-bottom: 1px black solid;
-    text-align: left
+    text-align: left;
   `;
 
   const CardContainer = styled.div`
     margin: 0 auto;
     max-width: 800px;
+  `;
+
+  const CardElement = styled.div`
+    grid-area: 1 / 3 / 1 / span 4;
+
+    ${Button} {
+      width: 100%;
+    }
   `;
 
   const handleAddCardButton = () => {
@@ -79,17 +89,19 @@ export const CardOverviewComponent = () => {
 
   return (
     <CardContainer>
-      <CardAdd>
+      <CardItem>
         <div>
-          <Textfield type="text" ref={frontText} />
+          <Textfield placeholder={translate("inputPlaceholderTextFront")} type="text" ref={frontText} />
         </div>
         <div>
-          <Textfield type="text" ref={backText} />
+          <Textfield placeholder={translate("inputPlaceholderTextBack")} type="text" ref={backText} />
         </div>
-        <div>
-          <Button onClick={handleAddCardButton}>Add</Button>
-        </div>
-      </CardAdd>
+        <CardElement>
+          <Button size={ButtonSize.SMALL} onClick={handleAddCardButton}>
+            {translate("addButton")}
+          </Button>
+        </CardElement>
+      </CardItem>
       {cards.map((card) => {
         return (
           <CardItem key={card.id}>
@@ -97,7 +109,9 @@ export const CardOverviewComponent = () => {
             <div>{card.back}</div>
             <div>
               <Link to={"/cards/" + card.id}>
-                <Button  size={ButtonSize.SMALL}>Edit</Button>
+                <Button size={ButtonSize.SMALL}>
+                  {translate("editButton")}
+                </Button>
               </Link>
             </div>
             <div>
@@ -105,7 +119,7 @@ export const CardOverviewComponent = () => {
                 size={ButtonSize.SMALL}
                 onClick={(e) => handleDeleteButton(e, card)}
               >
-                Delete
+                {translate("deleteButton")}
               </Button>
             </div>
           </CardItem>

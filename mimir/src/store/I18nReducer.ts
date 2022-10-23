@@ -1,5 +1,6 @@
 import {I18nAction, I18nActionTypeEnum} from "../models/i18nAction";
 import {I18nState} from "../models/I18nState";
+import {getLangFromLocalStorage} from "../services/i18nService";
 
 export function i18nReducer(
     langState: I18nState,
@@ -12,7 +13,7 @@ export function i18nReducer(
 }
 
 export const initialLanguage: I18nState = {
-    lang: "de",
+    lang: getLangFromLocalStorage(),
     translations: {  },
 };
 

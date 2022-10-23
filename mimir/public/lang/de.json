@@ -1,15 +1,21 @@
 {
   "newGameButton": "Neues Spiel",
   "finishedGameButton": "Fertig",
-  "runningGameButton": "Solve #",
+  "runningGameButton": "Frage #{}",
   "manageCardButton": "Karten verwalten",
-  "progressTitle": "Progress",
-  "submitButton": "Submit",
+  "deleteGameButton": "Spiel löschen",
+  "progressTitle": "Fortschritt",
+  "submitButton": "Einreichen",
   "startNewGameButton": "Neues Spiel starten",
   "noGameRunningText": "Kein Spiel läuft",
   "solvedTotalText": "Gelöst {} von {} korrekt",
   "solvedFrontHeaderText": "Vorderseite",
   "solvedBackHeaderText": "Rückseite",
   "solvedYourAnswerHeaderText": "Deine Antwort",
-  "solvedAcceptedHeaderText": "Lösung"
+  "solvedAcceptedHeaderText": "Lösung",
+  "deleteButton": "Löschen",
+  "editButton": "Bearbeiten",
+  "addButton": "Hinzufügen",
+  "inputPlaceholderTextFront": "Vorderseite",
+  "inputPlaceholderTextBack": "Rückseite"
 }

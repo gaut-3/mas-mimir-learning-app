@@ -2,17 +2,14 @@ import styled from "styled-components";
 import { useContext, useEffect, useState } from "react";
 import { GameStateEnum } from "../utils/GameStateEnum";
 import { AppContext } from "../store/GameContext";
-import { GameState } from "../models/GameState";
 import { Link } from "react-router-dom";
 import useTranslation from "../hooks/LanguageTranslation";
 import { LanguageComponent } from "./LanguageComponent";
 import { Button } from "elements/Button";
 
-interface Props {
-  gameState: GameState;
-}
-
 export const NavBarComponent = () => {
+  const translate = useTranslation();
+
   interface ContainerProps {
     justifyContent: string;
   }
@@ -21,8 +18,6 @@ export const NavBarComponent = () => {
     alignment: string;
   }
 
-  const translate = useTranslation();
-
   const Container = styled.div<ContainerProps>`
     display: flex;
     flex-direction: row;
@@ -30,7 +25,8 @@ export const NavBarComponent = () => {
     justify-content: ${(p) => p.justifyContent};
     background-color: blue;
     padding: 0 5px;
-    margin-bottom:25px;
+    margin-bottom: 25px;
+    align-items: baseline;
   `;
 
   const Item = styled.div<ItemProps>`
@@ -39,7 +35,6 @@ export const NavBarComponent = () => {
     width: 100%;
     justify-content: right;
   `;
-
 
   const [buttonTitle, setButtonTitle] = useState<string>("newGameButton");
   const { game, state } = useContext(AppContext);
@@ -56,10 +51,7 @@ export const NavBarComponent = () => {
 
   const getCountNumberGameRunning = (): string => {
     if (state == GameStateEnum.RUNNING) {
-      let count = game.solved.length;
-      if (count === 0) {
-        count = 1;
-      }
+      let count = game.solved.length + 1;
       return count.toString();
     }
     return "";
@@ -80,7 +72,7 @@ export const NavBarComponent = () => {
       <Item alignment="center">
         <Link to="/">
           <Button>
-            {translate(buttonTitle, [getCountNumberGameRunning()]) }
+            {translate(buttonTitle, [getCountNumberGameRunning()])}
           </Button>
         </Link>
       </Item>
