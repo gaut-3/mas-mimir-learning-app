@@ -1,4 +1,5 @@
 {
+  "logoTitle": "Mimir",
   "newGameButton": "New Game",
   "finishedGameButton": "Finished",
   "runningGameButton": "Solve #{}",
@@ -9,13 +10,14 @@
   "startNewGameButton": "Start New Game",
   "noGameRunningText": "No game running",
   "solvedTotalText": "Solved {} out of {} correctly",
-  "solvedFrontHeaderText": "Front",
-  "solvedBackHeaderText": "Back",
+  "frontHeaderText": "Front",
+  "backHeaderText": "Back",
   "solvedYourAnswerHeaderText": "Your Answer",
   "solvedAcceptedHeaderText": "Accepted",
   "deleteButton": "Delete",
   "editButton": "Edit",
   "addButton": "Add",
+  "updateButton": "Update",
   "inputPlaceholderTextFront": "Front",
   "inputPlaceholderTextBack": "Back"
 }

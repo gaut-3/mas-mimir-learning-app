@@ -65,7 +65,7 @@ export const NavBarComponent = () => {
     <Container justifyContent="space-between">
       <Item alignment="left">
         <Container justifyContent="left">
-          <h1>Mimir</h1>
+          <h1>{translate("logoTitle")}</h1>
           <LanguageComponent />
         </Container>
       </Item>

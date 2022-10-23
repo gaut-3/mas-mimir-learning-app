@@ -11,6 +11,7 @@ import {
   getLangFromLocalStorage,
 } from "./services/i18nService";
 import { I18nActionTypeEnum } from "./models/i18nAction";
+import { Container } from "elements/Container";
 
 function App() {
   const { dispatch } = useContext(I18nContext);
@@ -34,11 +35,13 @@ function App() {
   return (
     <div className="App">
       <NavBarComponent />
-      <Routes>
-        <Route path="/" element={<GamePageComponent />} />
-        <Route path="/cards" element={<CardOverviewComponent />} />
-        <Route path="/cards/:cardId" element={<CardDetail />} />
-      </Routes>
+      <Container>
+        <Routes>
+          <Route path="/" element={<GamePageComponent />} />
+          <Route path="/cards" element={<CardOverviewComponent />} />
+          <Route path="/cards/:cardId" element={<CardDetail />} />
+        </Routes>
+      </Container>
     </div>
   );
 }

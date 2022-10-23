@@ -1,4 +1,5 @@
 {
+  "logoTitle": "Mimir",
   "newGameButton": "Neues Spiel",
   "finishedGameButton": "Fertig",
   "runningGameButton": "Frage #{}",
@@ -9,13 +10,14 @@
   "startNewGameButton": "Neues Spiel starten",
   "noGameRunningText": "Kein Spiel läuft",
   "solvedTotalText": "Gelöst {} von {} korrekt",
-  "solvedFrontHeaderText": "Vorderseite",
-  "solvedBackHeaderText": "Rückseite",
+  "frontHeaderText": "Vorderseite",
+  "backHeaderText": "Rückseite",
   "solvedYourAnswerHeaderText": "Deine Antwort",
   "solvedAcceptedHeaderText": "Lösung",
   "deleteButton": "Löschen",
   "editButton": "Bearbeiten",
   "addButton": "Hinzufügen",
+  "updateButton": "Aktualisieren",
   "inputPlaceholderTextFront": "Vorderseite",
   "inputPlaceholderTextBack": "Rückseite"
 }

@@ -5,24 +5,16 @@ import { AppContext } from "../../store/GameContext";
 import { GameActionTypeEnum } from "../../models/GameAction";
 import { Answer } from "../../store/GameReducer";
 import useTranslation from "../../hooks/LanguageTranslation";
+import { Textfield } from "elements/Textfield";
+import { FlexboxColumn } from "elements/FlexboxColumn";
+import { Button, ButtonSize } from "../../elements/Button";
 
 export const OngoingGameComponent = () => {
-  const Container = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    margin: 20px 20px;
-  `;
-  const Button = styled.button`
-    background: black;
-    border-radius: 3px;
-    color: white;
-    margin: 0 1em;
-    padding: 1.25em 3em;
-  `;
+  const { game, dispatch } = useContext(AppContext);
+  const translate = useTranslation();
+  const [answerText, setAnswerText] = useState("");
 
-  const Content = styled.div`
+  const CardContainer = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -31,19 +23,31 @@ export const OngoingGameComponent = () => {
   `;
 
   const Card = styled.div`
+    display: flex;
     min-height: 400px;
     min-width: 400px;
     border: solid black 1px;
-    vertical-align: middle;
+    justify-content: center;
+    align-items: center;
+  `;
+
+  const FlexboxRow = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    column-gap: 20px;
+    width: 100%;
   `;
 
   const Word = styled.div`
-    padding-top: 50%;
-    margin: 0;
+    font-weight: bold;
+    font-size: 50px;
   `;
-  const translate = useTranslation();
-  const [answerText, setAnswerText] = useState("");
-  const { game, state, dispatch } = useContext(AppContext);
+
+  const getGameProgression = () => {
+    const progessionNumber = (game.solved.length / game.cardCount) * 100;
+    return Number(progessionNumber.toFixed(0));
+  };
 
   const handleDeleteGameButton = () => {
     deleteGame().then((value) => {
@@ -59,24 +63,14 @@ export const OngoingGameComponent = () => {
     };
     patchAnswerGame(answer).then((value) => {
       if (value) {
-        console.log(
-          "ongoing finished awsdf ",
-          game.solved.length,
-          game.cardCount
-        );
         if (value.solved.length === value.cardCount) {
-          console.log("ongoing finished");
           dispatch({ game: value, type: GameActionTypeEnum.FinishGame });
         } else {
           dispatch({ game: value, type: GameActionTypeEnum.UpdateGame });
         }
+        setAnswerText("");
       }
     });
-  };
-
-  const getGameProgression = () => {
-    const progessionNumber = (game.solved.length / game.cardCount) * 100;
-    return Number(progessionNumber.toFixed(0));
   };
 
   const handleAnswerTextfield = (e: ChangeEvent<HTMLInputElement>) => {
@@ -85,34 +79,36 @@ export const OngoingGameComponent = () => {
 
   return (
     <>
-      <Container>
+      <FlexboxRow>
         <div>
           <h2>
             {translate("progressTitle")} {getGameProgression()}%
           </h2>
         </div>
         <div>
-          <Button onClick={handleDeleteGameButton}>{translate("deleteGameButton")}</Button>
-        </div>
-      </Container>
-      <Content>
-        <Card>
-          <Word>{game.front}</Word>
-        </Card>
-      </Content>
-      <Content>
-        <div>
-          <input
-            type="text"
-            autoFocus={true}
-            value={answerText}
-            onChange={handleAnswerTextfield}
-          />
-          <Button onClick={handleAnwserButton}>
-            {translate("submitButton")}
+          <Button onClick={handleDeleteGameButton}>
+            {translate("deleteGameButton")}
           </Button>
         </div>
-      </Content>
+      </FlexboxRow>
+      <CardContainer>
+        <FlexboxColumn>
+          <Card>
+            <Word>{game.front}</Word>
+          </Card>
+          <FlexboxRow>
+            <Textfield
+              type="text"
+              autoFocus={true}
+              value={answerText}
+              onChange={handleAnswerTextfield}
+            />
+            <Button size={ButtonSize.SMALL} onClick={handleAnwserButton}>
+              {translate("submitButton")}
+            </Button>
+          </FlexboxRow>
+        </FlexboxColumn>
+      </CardContainer>
     </>
   );
 };

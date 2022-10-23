@@ -5,8 +5,8 @@ export interface ButtonProps {
 }
 
 export enum ButtonSize {
-  DEFAULT = "1.25em 3em",
-  SMALL = "10px 25px",
+  DEFAULT = "17px 40px",
+  SMALL = "12px 25px",
 }
 
 export const Button = styled.button<ButtonProps>`

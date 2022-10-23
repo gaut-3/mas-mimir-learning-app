@@ -6,13 +6,6 @@ import { I18nContext } from "../store/I18nContext";
 import { LanguageEnum } from "../utils/LanguageEnum";
 
 export const LanguageComponent = () => {
-  const Button = styled.button`
-    background: #02e0ff;
-    border-radius: 3px;
-    color: black;
-    margin: 0 2px;
-    padding: 0.5em 1em;
-  `;
   const { lang, dispatch } = useContext(I18nContext);
 
   const changeLangugeClick = async (lang: LanguageEnum) => {

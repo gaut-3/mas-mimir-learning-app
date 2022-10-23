@@ -8,10 +8,11 @@ import { Link } from "react-router-dom";
 import { Button, ButtonSize } from "elements/Button";
 import { Textfield } from "elements/Textfield";
 import useTranslation from "../../hooks/LanguageTranslation";
+import { Separator } from "elements/Separator";
 
 export const CardOverviewComponent = () => {
-  const { cards, dispatch } = useContext(CardContext);
   const translate = useTranslation();
+  const { cards, dispatch } = useContext(CardContext);
 
   useEffect(() => {
     const onMount = async () => {
@@ -26,34 +27,16 @@ export const CardOverviewComponent = () => {
   const frontText = useRef<HTMLInputElement>(null);
   const backText = useRef<HTMLInputElement>(null);
 
-  const CardItem = styled.div`
+  const CardGrid = styled.div`
     display: grid;
     grid-template-columns: 2fr 2fr 0.5fr 0.5fr;
-    gap: 10px;
-    margin-bottom: 15px;
-    padding-bottom: 15px;
-    border-bottom: 1px black solid;
+    column-gap: 10px;
     align-items: center;
     text-align: left;
   `;
 
-  const CardAdd = styled.div`
-    display: grid;
-    grid-template-columns: 2fr 2fr 0.5fr 0.5fr;
-    gap: 10px;
-    margin-bottom: 15px;
-    padding-bottom: 15px;
-    border-bottom: 1px black solid;
-    text-align: left;
-  `;
-
-  const CardContainer = styled.div`
-    margin: 0 auto;
-    max-width: 800px;
-  `;
-
   const CardElement = styled.div`
-    grid-area: 1 / 3 / 1 / span 4;
+    grid-area: 1 / 3 / 1 / span 2;
 
     ${Button} {
       width: 100%;
@@ -88,23 +71,30 @@ export const CardOverviewComponent = () => {
   };
 
   return (
-    <CardContainer>
-      <CardItem>
-        <div>
-          <Textfield placeholder={translate("inputPlaceholderTextFront")} type="text" ref={frontText} />
-        </div>
-        <div>
-          <Textfield placeholder={translate("inputPlaceholderTextBack")} type="text" ref={backText} />
-        </div>
-        <CardElement>
-          <Button size={ButtonSize.SMALL} onClick={handleAddCardButton}>
-            {translate("addButton")}
-          </Button>
-        </CardElement>
-      </CardItem>
+    <CardGrid>
+      <div>
+        <Textfield
+          placeholder={translate("inputPlaceholderTextFront")}
+          type="text"
+          ref={frontText}
+        />
+      </div>
+      <div>
+        <Textfield
+          placeholder={translate("inputPlaceholderTextBack")}
+          type="text"
+          ref={backText}
+        />
+      </div>
+      <CardElement>
+        <Button size={ButtonSize.SMALL} onClick={handleAddCardButton}>
+          {translate("addButton")}
+        </Button>
+      </CardElement>
+      <Separator />
       {cards.map((card) => {
         return (
-          <CardItem key={card.id}>
+          <>
             <div>{card.front}</div>
             <div>{card.back}</div>
             <div>
@@ -122,9 +112,10 @@ export const CardOverviewComponent = () => {
                 {translate("deleteButton")}
               </Button>
             </div>
-          </CardItem>
+            <Separator />
+          </>
         );
       })}
-    </CardContainer>
+    </CardGrid>
   );
 };

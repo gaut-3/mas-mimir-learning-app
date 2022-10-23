@@ -5,9 +5,11 @@ import { useContext } from "react";
 import { AppContext } from "../../store/GameContext";
 import useTranslation from "../../hooks/LanguageTranslation";
 import { Button } from "elements/Button";
+import { Separator } from "elements/Separator";
+import {FlexboxColumn} from "../../elements/FlexboxColumn";
 
 export const EndGameComponent = () => {
-  const { game, state, dispatch } = useContext(AppContext);
+  const { game, dispatch } = useContext(AppContext);
   const translate = useTranslation();
 
   const Container = styled.div`
@@ -33,9 +35,7 @@ export const EndGameComponent = () => {
 
   const getSolvedText = () => {
     const gameCards = game.solved.filter((value) => value.accepted);
-    return (
-      "Solved " + gameCards.length + " out of " + game.cardCount + " correctly"
-    );
+    return translate("solvedTotalText", [gameCards.length, game.cardCount]);
   };
 
   const getAcceptedSymbol = (accepted: boolean) => {
@@ -56,50 +56,48 @@ export const EndGameComponent = () => {
     border-top: 1px black solid;
   `;
 
-  const HeaderItems = styled.div`
-    display: grid;
-    grid-template-columns: 2fr 2fr 2fr 0.5fr;
-    gap: 10px;
-    font-weight: bold
+  const HeaderItem = styled.div`
+    font-weight: bold;
   `;
 
   const SolvedContainer = styled.div`
-    max-width: 800px;
-    margin: 0 auto;
     text-align: left;
+    display: grid;
+    grid-template-columns: 2fr 2fr 2fr 0.5fr;
+    gap: 10px;
+    margin: 15px 0;
+    padding: 15px 0;
   `;
 
   return (
     <>
-      <Container>
+      <FlexboxColumn>
         <div>
-          <Button onClick={handleNewGameButton}>{translate("startNewGameButton")}</Button>
+          <Button onClick={handleNewGameButton}>
+            {translate("startNewGameButton")}
+          </Button>
         </div>
-      </Container>
-      <Container>
         <div>
           <p>{getSolvedText()}</p>
         </div>
-      </Container>
+      </FlexboxColumn>
       <SolvedContainer>
-        <HeaderItems>
-          <div>{translate("solvedFrontHeaderText")}</div>
-          <div>{translate("solvedBackHeaderText")}</div>
-          <div>{translate("solvedYourAnswerHeaderText")}</div>
-          <div>{translate("solvedAcceptedHeaderText")}</div>
-        </HeaderItems>
-        <AnwserItems>
-          {game.solved.map((gameCard) => {
-            return (
-              <>
-                <div>{gameCard.front}</div>
-                <div>{gameCard.back}</div>
-                <div>{gameCard.answer}</div>
-                <div>{getAcceptedSymbol(gameCard.accepted)}</div>
-              </>
-            );
-          })}
-        </AnwserItems>
+        <HeaderItem>{translate("frontHeaderText")}</HeaderItem>
+        <HeaderItem>{translate("backHeaderText")}</HeaderItem>
+        <HeaderItem>{translate("solvedYourAnswerHeaderText")}</HeaderItem>
+        <HeaderItem>{translate("solvedAcceptedHeaderText")}</HeaderItem>
+        <Separator />
+        {game.solved.map((gameCard) => {
+          return (
+            <>
+              <div>{gameCard.front}</div>
+              <div>{gameCard.back}</div>
+              <div>{gameCard.answer}</div>
+              <div>{getAcceptedSymbol(gameCard.accepted)}</div>
+              <Separator />
+            </>
+          );
+        })}
       </SolvedContainer>
     </>
   );
